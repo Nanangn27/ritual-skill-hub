@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useFavorites } from "@/hooks/useFavorites";
 import ExternalLink from "@/components/ExternalLink";
 import type { Skill } from "@/types/skill";
 
@@ -7,6 +10,7 @@ type SkillCardProps = {
 };
 
 export default function SkillCard({ skill }: SkillCardProps) {
+  const { toggle, isFavorite } = useFavorites();
   const {
     title,
     author,
@@ -18,7 +22,20 @@ export default function SkillCard({ skill }: SkillCardProps) {
   } = skill;
 
   return (
-    <Link href={`/skills/${skill.id}`} passHref>
+    
+<button
+  onClick={(e) => {
+    e.preventDefault();
+    toggle(skill.id);
+  }}
+  className="absolute right-3 top-3 text-xl"
+  aria-label="Toggle favorite"
+>
+  {isFavorite(skill.id) ? "⭐" : "☆"}
+</button>
+
+
+<Link href={`/skills/${skill.id}`} passHref>
       <a className="group flex h-full flex-col rounded-lg border border-gray-200 hover:border-indigo-400 hover:shadow-md transition-all">
         <div className="flex-1 p-4">
           <h3 className="mb-2 line-clamp-2 font-semibold text-gray-900">
