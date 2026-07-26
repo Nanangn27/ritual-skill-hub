@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Hero from '@/components/home/Hero';
-import SearchBar from '@/components/ui/SearchBar';
+import SearchBar from "@/components/ui/SearchBar";
 import FeaturedSkills from '@/components/home/FeaturedSkills';
 import CommunityStats from '@/components/home/CommunityStats';
 import TrendingSkills from '@/components/home/TrendingSkills';
@@ -10,14 +10,15 @@ import Categories from '@/components/home/Categories';
 import TopCreators from '@/components/home/TopCreators';
 
 export default function Home() {
+  const [search, setSearch] = useState("");
 
   return (
     <div className="space-y-8">
       <Hero />
 
-      <SearchBar />
+      <SearchBar value={search} onChange={setSearch} />
 
-      <FeaturedSkills />
+      <FeaturedSkills search={search} />
 
       <TrendingSkills />
 
