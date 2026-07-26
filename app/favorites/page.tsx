@@ -13,9 +13,13 @@ export default function FavoritesPage() {
 
   return (
     <main className="container mx-auto py-10">
-      <h1 className="mb-6 text-3xl font-bold">
+      <h1 className="mb-2 text-3xl font-bold">
         My Favorite Skills
       </h1>
+
+      <p className="mb-6 text-sm text-muted-foreground">
+        {skills.length} favorite skill{skills.length === 1 ? "" : "s"}
+      </p>
 
       {skills.length === 0 ? (
         <p className="text-muted-foreground">
