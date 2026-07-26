@@ -1,15 +1,14 @@
 import { notFound } from "next/navigation";
 import { mockSkills } from "@/data/mockSkills";
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
-export default function SkillDetailPage({ params }: Props) {
+export default async function SkillDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
   const skill = mockSkills.find(
-    (item) => String(item.id) === params.id
+    (item) => String(item.id) === id
   );
 
   if (!skill) {
