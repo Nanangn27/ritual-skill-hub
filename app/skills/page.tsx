@@ -3,11 +3,13 @@
 import SearchBar from "@/components/ui/SearchBar";
 import FeaturedSkills from "@/components/home/FeaturedSkills";
 import CategoryFilter from "@/components/skills/CategoryFilter";
+import SortSelect from "@/components/skills/SortSelect";
 import { useState } from "react";
 
 export default function SkillsPage() {
   const [search, setSearch] = useState("");
 const [category, setCategory] = useState("All");
+const [sort, setSort] = useState("rating");
 
 const categories = [
   "All",
