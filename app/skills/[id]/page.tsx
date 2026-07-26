@@ -7,6 +7,7 @@ import { parseEther } from 'viem';
 import { waitForTransactionReceipt } from 'viem/actions';
 import { ritualTestnet } from '@/lib/wagmi';
 import { useState } from 'react';
+import TransactionStatus from '@/components/TransactionStatus';
 
 export default function SkillDetail() {
   const { id } = useParams<{ id: string }>();
