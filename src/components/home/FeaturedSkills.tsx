@@ -1,5 +1,5 @@
 import Link from "next/link";
-import SkillCard from "@/components/skills/SkillCard";
+import SkillGrid from "@/components/skills/SkillGrid";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { mockSkills } from "@/data/mockSkills";
 
@@ -26,11 +26,7 @@ export default function FeaturedSkills({ search }: FeaturedSkillsProps) {
         actionLabel="View All →"
       />
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {filteredSkills.map((skill) => (
-          <SkillCard key={skill.id} skill={skill} />
-        ))}
-      </div>
+      <SkillGrid skills={filteredSkills} />
     </section>
   );
 }
