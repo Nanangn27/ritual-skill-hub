@@ -1,3 +1,4 @@
+import Link from "next/link";
 export default function PublishPage() {
   return (
     <main className="mx-auto max-w-3xl space-y-8 p-8">
@@ -41,12 +42,12 @@ export default function PublishPage() {
           />
         </div>
 
-        <button
-          type="submit"
-          className="rounded-lg bg-indigo-600 px-6 py-3 text-white hover:bg-indigo-700"
+        <Link
+          href="/publish/preview"
+          className="inline-block rounded-lg bg-indigo-600 px-6 py-3 text-white hover:bg-indigo-700"
         >
           Continue
-        </button>
+        </Link>
       </form>
     </main>
   );
