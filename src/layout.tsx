@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import Link from 'next/link';
 import { useAccount, useConnect, useDisconnect, useChainId } from 'wagmi';
-import { metaMask, walletConnect } from 'wagmi/connectors';
+import { metaMask } from 'wagmi/connectors';
 import { ritualTestnet } from '@/lib/wagmi';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
