@@ -53,11 +53,12 @@ export default function MySkillsPage() {
                     View
                   </Link>
 
-                  <button
+                  <Link
+                    href={`/dashboard/skills/${skill.id}/edit`}
                     className="rounded-md border border-indigo-500 px-3 py-1 text-sm text-indigo-600 hover:bg-indigo-50"
                   >
                     Edit
-                  </button>
+                  </Link>
 
                   <button
                     className="rounded-md border border-red-500 px-3 py-1 text-sm text-red-600 hover:bg-red-50"
