@@ -24,7 +24,7 @@ export const config = createConfig({
   connectors: [
     injected(),
     metaMask(),
-    walletConnect({ projectId: import.meta.env.VITE_WC_PROJECT_ID ?? '' }),
+    walletConnect({ projectId: process.env.NEXT_PUBLIC_WC_PROJECT_ID ?? '' }),
   ],
   transports: {
     [ritualTestnet.id]: http(),
