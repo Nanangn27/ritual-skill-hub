@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import ExternalLink from '@/components/ExternalLink';
 import { useAccount, useWalletClient, useChainId } from 'wagmi';
 import { parseEther } from 'viem';
+import { waitForTransactionReceipt } from 'viem/actions';
 import { ritualTestnet } from '@/lib/wagmi';
 import { useState } from 'react';
 
@@ -66,7 +67,7 @@ export default function SkillDetail() {
       });
 
       setTxHash(hash);
-      const receipt = await walletClient.waitForTransactionReceipt({ hash });
+      const receipt = await waitForTransactionReceipt(walletClient, { hash });
       if (receipt.status === 'success') {
         setSuccess(true);
         // In a real app, we would also call a rating contract to submit the rating
@@ -111,7 +112,7 @@ export default function SkillDetail() {
       });
 
       setTxHash(hash);
-      const receipt = await walletClient.waitForTransactionReceipt({ hash });
+      const receipt = await waitForTransactionReceipt(walletClient, { hash });
       if (receipt.status === 'success') {
         setSuccess(true);
         // In a real app, we would also call a review contract to submit the review
