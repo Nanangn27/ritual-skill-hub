@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { mockSkills } from "@/data/mockSkills";
 import RelatedSkills from "@/components/skills/RelatedSkills";
+import InstallCard from "@/components/skills/InstallCard";
 
 export default async function SkillDetailPage({
   params,
@@ -58,17 +59,24 @@ export default async function SkillDetailPage({
         </div>
       </section>
 
-      <section className="rounded-xl border p-6">
-        <h2 className="mb-4 text-xl font-semibold">
-          About this Skill
-        </h2>
+      <div className="grid gap-8 lg:grid-cols-[2fr_1fr]">
+        <section className="rounded-xl border p-6">
+          <h2 className="mb-4 text-xl font-semibold">
+            About this Skill
+          </h2>
 
-        <p className="leading-7 text-gray-700">
-          This section will contain the full documentation,
-          installation guide, usage examples, supported models,
-          requirements, and future updates.
-        </p>
-      </section>
+          <p className="leading-7 text-gray-700">
+            This section will contain the full documentation,
+            installation guide, usage examples, supported models,
+            requirements, and future updates.
+          </p>
+        </section>
+
+        <InstallCard
+          downloads={skill.downloadCount}
+          rating={skill.rating}
+        />
+      </div>
       <RelatedSkills currentId={skill.id} />
 </main>
   );
