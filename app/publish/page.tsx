@@ -1,165 +1,53 @@
-'use client';
-
-import { useState } from 'react';
-import { useAccount, useWalletClient, useChainId } from 'wagmi';
-import { parseEther } from 'viem';
-import { waitForTransactionReceipt } from 'viem/actions';
-import { ritualTestnet } from '@/lib/wagmi';
-import TransactionStatus from '@/components/TransactionStatus';
-
-export default function PublishSkill() {
-  const { address, isConnected } = useAccount();
-  const { data: walletClient } = useWalletClient();
-  const chainId = useChainId();
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    tags: '',
-    version: '1.0.0',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [txHash, setTxHash] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
-
-  const isCorrectNetwork = chainId === ritualTestnet.id;
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!isConnected || !walletClient) {
-      setError('Please connect your wallet');
-      return;
-    }
-    if (!isCorrectNetwork) {
-      setError('Please switch to Ritual Testnet');
-      return;
-    }
-    if (!formData.title.trim() || !formData.description.trim()) {
-      setError('Please fill in all required fields');
-      return;
-    }
-
-    setIsSubmitting(true);
-    setError(null);
-    setSuccess(false);
-    setTxHash(null);
-
-    try {
-      // Send 0.001 RIT to treasury for publishing a skill
-      const treasuryAddress = '0x433d4d43afd32a5ea40e875236db26d4c3b7886f';
-      const amount = parseEther('0.001');
-
-      const hash = await walletClient.sendTransaction({
-        to: treasuryAddress as `0x${string}`,
-        value: amount,
-      });
-
-      setTxHash(hash);
-      const receipt = await waitForTransactionReceipt(walletClient, { hash });
-      if (receipt.status === 'success') {
-        setSuccess(true);
-        // In a real app, we would call a skill registry contract to store the skill metadata
-        // For now, we just show the transaction success
-      } else {
-        setError('Transaction failed');
-      }
-    } catch (err: any) {
-      setError(err.message || 'An unknown error occurred');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
+export default function PublishPage() {
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
-      <div className="mb-6">
-        <a href="/" className="text-sm text-indigo-600 hover:text-indigo-500">
-          ← Back to Home
-        </a>
+    <main className="mx-auto max-w-3xl space-y-8 p-8">
+      <div>
+        <h1 className="text-4xl font-bold">Publish Skill</h1>
+        <p className="mt-2 text-gray-600">
+          Share your AI skill with the Ritual community.
+        </p>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md border border-gray-200">
-        <div className="p-6">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Publish a Skill</h1>
-          <p className="text-gray-600 mb-6">
-            Share your AI agent skill with the Ritual Chain community. A fee of 0.001 RIT will be sent to the treasury for publishing.
-          </p>
-
-          {!isConnected ? (
-            <p className="text-gray-500 mb-4">Connect your wallet to publish a skill.</p>
-          ) : !isCorrectNetwork ? (
-            <p className="text-red-500 mb-4">Please switch to Ritual Testnet to publish a skill.</p>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Skill Title</label>
-                <input
-                  type="text"
-                  name="title"
-                  value={formData.title}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="Enter skill title"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 h-32"
-                  placeholder="Describe what your skill does"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Tags (comma-separated)</label>
-                <input
-                  type="text"
-                  name="tags"
-                  value={formData.tags}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="e.g., AI, NLP, Sentiment"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Version</label>
-                <input
-                  type="text"
-                  name="version"
-                  value={formData.version}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="1.0.0"
-                />
-              </div>
-
-              <div className="flex items-center space-x-3">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50 transition`}
-                >
-                  {isSubmitting ? 'Publishing...' : 'Publish Skill'}
-                </button>
-              </div>
-
-              {txHash && (
-                <TransactionStatus txHash={txHash} />
-              )}
-            </form>
-          )}
+      <form className="space-y-6 rounded-xl border p-6">
+        <div>
+          <label className="mb-2 block font-medium">Skill Name</label>
+          <input
+            className="w-full rounded-lg border p-3"
+            placeholder="My AI Skill"
+          />
         </div>
-      </div>
-    </div>
+
+        <div>
+          <label className="mb-2 block font-medium">Description</label>
+          <textarea
+            className="h-32 w-full rounded-lg border p-3"
+            placeholder="Describe your skill..."
+          />
+        </div>
+
+        <div>
+          <label className="mb-2 block font-medium">Repository URL</label>
+          <input
+            className="w-full rounded-lg border p-3"
+            placeholder="https://github.com/..."
+          />
+        </div>
+
+        <div>
+          <label className="mb-2 block font-medium">Documentation URL</label>
+          <input
+            className="w-full rounded-lg border p-3"
+            placeholder="https://docs.example.com"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="rounded-lg bg-indigo-600 px-6 py-3 text-white hover:bg-indigo-700"
+        >
+          Continue
+        </button>
+      </form>
+    </main>
   );
 }
