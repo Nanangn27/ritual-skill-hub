@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useAccount, useWalletClient, useChainId } from 'wagmi';
-import { parseEther } from 'viem';
+import { parseEther, waitForTransactionReceipt } from 'viem/actions';
 import { ritualTestnet } from '@/lib/wagmi';
 import TransactionStatus from '@/components/TransactionStatus';
 
@@ -59,7 +59,7 @@ export default function PublishSkill() {
       });
 
       setTxHash(hash);
-      const receipt = await walletClient.waitForTransactionReceipt({ hash });
+      const receipt = await waitForTransactionReceipt(walletClient, { hash });
       if (receipt.status === 'success') {
         setSuccess(true);
         // In a real app, we would call a skill registry contract to store the skill metadata
