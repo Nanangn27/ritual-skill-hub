@@ -16,7 +16,7 @@ export default function InstallCard({
 
       <Link href={`/install/${skill.id}`} className="w-full rounded-lg border py-3 font-medium hover:bg-gray-50 transition">
         View Source
-      </button>
+      </Link>
 
       <div className="border-t pt-4 text-sm space-y-2">
         <div className="flex justify-between">
