@@ -23,6 +23,36 @@ export default function MySkillsPage() {
         </Link>
       </div>
 
+      
+      <div className="grid gap-4 md:grid-cols-4 mb-8">
+        <div className="rounded-xl border p-4">
+          <p className="text-sm text-gray-500">Published Skills</p>
+          <p className="mt-2 text-3xl font-bold">{skills.length}</p>
+        </div>
+
+        <div className="rounded-xl border p-4">
+          <p className="text-sm text-gray-500">Total Downloads</p>
+          <p className="mt-2 text-3xl font-bold">
+            {skills.reduce((sum, s) => sum + s.downloadCount, 0)}
+          </p>
+        </div>
+
+        <div className="rounded-xl border p-4">
+          <p className="text-sm text-gray-500">Average Rating</p>
+          <p className="mt-2 text-3xl font-bold">
+            {(skills.reduce((sum, s) => sum + s.rating, 0) / skills.length).toFixed(1)}
+          </p>
+        </div>
+
+        <div className="rounded-xl border p-4">
+          <p className="text-sm text-gray-500">Reviews</p>
+          <p className="mt-2 text-3xl font-bold">
+            {skills.reduce((sum, s) => sum + s.reviewCount, 0)}
+          </p>
+        </div>
+      </div>
+
+
       <div className="space-y-4">
         {skills.map((skill) => (
           <div
