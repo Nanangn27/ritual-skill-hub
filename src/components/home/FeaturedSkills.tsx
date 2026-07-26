@@ -12,6 +12,8 @@ type FeaturedSkillsProps = {
 
 export default function FeaturedSkills({ skills, search, category = 'All', sort = 'rating' }: FeaturedSkillsProps) {
 
+const source = skills;
+
 const filteredSkills = source.filter((skill) => {
   const q = search.toLowerCase();
 
