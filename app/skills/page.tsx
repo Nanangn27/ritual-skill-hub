@@ -2,10 +2,22 @@
 
 import SearchBar from "@/components/ui/SearchBar";
 import FeaturedSkills from "@/components/home/FeaturedSkills";
+import CategoryFilter from "@/components/skills/CategoryFilter";
 import { useState } from "react";
 
 export default function SkillsPage() {
   const [search, setSearch] = useState("");
+const [category, setCategory] = useState("All");
+
+const categories = [
+  "All",
+  "AI Agents",
+  "LLMs",
+  "Computer Vision",
+  "Security",
+  "DeFi",
+];
+
 
   return (
     <main className="space-y-8">
@@ -19,6 +31,12 @@ export default function SkillsPage() {
       <SearchBar
         value={search}
         onChange={setSearch}
+      />
+
+      <CategoryFilter
+        categories={categories}
+        selected={category}
+        onSelect={setCategory}
       />
 
       <FeaturedSkills search={search} />
