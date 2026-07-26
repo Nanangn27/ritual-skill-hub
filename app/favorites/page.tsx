@@ -8,7 +8,7 @@ export default function FavoritesPage() {
   const { favorites } = useFavorites();
 
   const skills = getAllSkills().filter((skill) =>
-    favorites.includes(skill.id)
+    favorites.includes(String(skill.id))
   );
 
   return (
