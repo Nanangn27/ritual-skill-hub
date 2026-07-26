@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getAllSkills } from "@/lib/skills";
+import DeleteSkillDialog from "@/components/dashboard/DeleteSkillDialog";
 
 export default function MySkillsPage() {
   const skills = getAllSkills();
@@ -60,11 +61,7 @@ export default function MySkillsPage() {
                     Edit
                   </Link>
 
-                  <button
-                    className="rounded-md border border-red-500 px-3 py-1 text-sm text-red-600 hover:bg-red-50"
-                  >
-                    Delete
-                  </button>
+                  <DeleteSkillDialog />
                 </div>
               </div>
             </div>
