@@ -53,7 +53,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
-      <header className="bg-white shadow-md">
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between py-4">
           <div className="flex items-center gap-8">
             <Link
@@ -66,12 +66,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 width={40}
                 height={40}
               />
-              <span className="text-xl font-bold text-indigo-600">
+              <span className="text-lg md:text-xl font-bold tracking-tight text-indigo-600">
                 Ritual Skill Hub
               </span>
             </Link>
 
-            <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+            <nav className="hidden lg:flex items-center gap-6 text-sm font-medium">
               <Link href="/skills" className="hover:text-indigo-600 transition">
                 Explore
               </Link>
