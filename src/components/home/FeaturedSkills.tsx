@@ -5,16 +5,22 @@ import { mockSkills } from "@/data/mockSkills";
 
 type FeaturedSkillsProps = {
   search: string;
+  category?: string;
 };
 
-export default function FeaturedSkills({ search }: FeaturedSkillsProps) {
+export default function FeaturedSkills({ search, category = 'All' }: FeaturedSkillsProps) {
   const filteredSkills = mockSkills.filter((skill) => {
   const q = search.toLowerCase();
 
-  return (
+  const matchesSearch =
     skill.title.toLowerCase().includes(q) ||
-    skill.description.toLowerCase().includes(q)
-  );
+    skill.description.toLowerCase().includes(q);
+
+  const matchesCategory =
+    category === "All" ||
+    skill.tags.includes(category);
+
+  return matchesSearch && matchesCategory;
 });
 
   return (
