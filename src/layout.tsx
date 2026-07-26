@@ -86,7 +86,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </a>
             </nav>
           </div>
-          <div className="flex items-center space-x-4 mt-4 sm:mt-0">
+          
+<div className="flex items-center gap-3 mt-4 sm:mt-0">
+
+<button
+  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+  className="lg:hidden p-2 rounded-md border hover:bg-gray-100"
+  aria-label="Open menu"
+>
+  {mobileMenuOpen ? "✕" : "☰"}
+</button>
+
+<div className="flex items-center space-x-4">
+
             {!isConnected ? (
               <>
                 <button
@@ -121,7 +133,21 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             )}
           </div>
         </div>
-      </header>
+      
+</div>
+
+{mobileMenuOpen && (
+<div className="lg:hidden border-t bg-white shadow">
+<nav className="flex flex-col p-4 space-y-4">
+<Link href="/skills" onClick={() => setMobileMenuOpen(false)}>Explore</Link>
+<Link href="/publish" onClick={() => setMobileMenuOpen(false)}>Publish</Link>
+<a href="#" onClick={() => setMobileMenuOpen(false)}>Docs</a>
+</nav>
+</div>
+)}
+
+</header>
+
       <main className="min-h-[calc(100vh-140px)] px-4 sm:px-6 lg:px-8 py-8">
         {(!isConnected || !isCorrectNetwork) && (
           <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md text-red-800">
