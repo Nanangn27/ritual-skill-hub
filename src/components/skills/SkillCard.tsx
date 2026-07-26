@@ -22,6 +22,7 @@ export default function SkillCard({ skill }: SkillCardProps) {
   } = skill;
 
   return (
+<>
     
 <button
   onClick={(e) => {
@@ -72,5 +73,6 @@ export default function SkillCard({ skill }: SkillCardProps) {
         </div>
       </a>
     </Link>
-  );
+  </>
+);
 }
