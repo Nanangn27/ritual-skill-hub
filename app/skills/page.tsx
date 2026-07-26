@@ -52,7 +52,20 @@ return (
         onSelect={setCategory}
       />
 
-      <FeaturedSkills
+      
+<div className="mb-4 flex items-center gap-2">
+  <input
+    id="favoritesOnly"
+    type="checkbox"
+    checked={favoritesOnly}
+    onChange={(e) => setFavoritesOnly(e.target.checked)}
+  />
+  <label htmlFor="favoritesOnly">
+    Favorites only
+  </label>
+</div>
+
+<FeaturedSkills
           skills={skills} search={search} category={category} sort={sort} />
     </main>
   );
