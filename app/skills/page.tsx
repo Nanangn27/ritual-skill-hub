@@ -6,6 +6,7 @@ import CategoryFilter from "@/components/skills/CategoryFilter";
 import SortSelect from "@/components/skills/SortSelect";
 import { useState } from "react";
 import { useSkills } from "@/hooks/useSkills";
+import { useFavorites } from "@/hooks/useFavorites";
 
 export default function SkillsPage() {
   const [search, setSearch] = useState("");
@@ -15,6 +16,11 @@ const [page, setPage] = useState(1);
 const [favoritesOnly, setFavoritesOnly] = useState(false);
 
 const { skills, loading, error, totalPages } = useSkills(page);
+const { favorites } = useFavorites();
+
+const visibleSkills = favoritesOnly
+  ? skills.filter(skill => favorites.includes(String(skill.id)))
+  : skills;
 
 const categories = [
   "All",
@@ -68,7 +74,7 @@ return (
 </div>
 
 <FeaturedSkills
-          skills={skills} search={search} category={category} sort={sort} />
+          skills={visibleSkills} search={search} category={category} sort={sort} />
     </main>
   );
 }
