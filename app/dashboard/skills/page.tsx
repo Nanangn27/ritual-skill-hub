@@ -68,6 +68,12 @@ export default function MySkillsPage() {
                 <p className="mt-1 text-sm text-gray-600">
                   {skill.description}
                 </p>
+
+                <div className="mt-3">
+                  <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
+                    Published
+                  </span>
+                </div>
               </div>
 
               <div className="text-right space-y-3">
