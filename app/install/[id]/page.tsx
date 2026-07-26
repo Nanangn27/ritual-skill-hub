@@ -29,9 +29,12 @@ export default async function InstallPage({
         <div>⬇ Downloads: {skill.downloadCount}</div>
         <div>👤 Author: {skill.author}</div>
 
-        <button className="w-full rounded-lg bg-indigo-600 px-4 py-3 text-white hover:bg-indigo-700">
+        <a
+          href="/install/success"
+          className="block w-full rounded-lg bg-indigo-600 px-4 py-3 text-center text-white hover:bg-indigo-700"
+        >
           Install Skill
-        </button>
+        </a>
       </div>
 
       <Link href="/skills" className="text-indigo-600 hover:underline">
