@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Hero from '@/components/home/Hero';
+import SearchBar from '@/components/ui/SearchBar';
 import FeaturedSkills from '@/components/home/FeaturedSkills';
 import CommunityStats from '@/components/home/CommunityStats';
 import TrendingSkills from '@/components/home/TrendingSkills';
@@ -13,6 +14,8 @@ export default function Home() {
   return (
     <div className="space-y-8">
       <Hero />
+
+      <SearchBar />
 
       <FeaturedSkills />
 
