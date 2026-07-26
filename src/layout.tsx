@@ -54,10 +54,27 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen bg-gray-50 text-gray-900">
       <header className="bg-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between py-4">
-          <div className="flex flex-col">
-            <Link href="/" className="flex items-center space-x-2 text-xl font-bold text-indigo-600">
+          <div className="flex items-center gap-8">
+            <Link
+              href="/"
+              className="text-xl font-bold text-indigo-600"
+            >
               Ritual Skill Hub
             </Link>
+
+            <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+              <Link href="/skills" className="hover:text-indigo-600 transition">
+                Explore
+              </Link>
+
+              <Link href="/publish" className="hover:text-indigo-600 transition">
+                Publish
+              </Link>
+
+              <a href="#" className="hover:text-indigo-600 transition">
+                Docs
+              </a>
+            </nav>
           </div>
           <div className="flex items-center space-x-4 mt-4 sm:mt-0">
             {!isConnected ? (
