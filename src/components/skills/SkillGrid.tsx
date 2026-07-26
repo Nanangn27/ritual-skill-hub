@@ -1,7 +1,8 @@
 import SkillCard from "@/components/skills/SkillCard";
+import type { Skill } from "@/types/skill";
 
 type SkillGridProps = {
-  skills: any[];
+  skills: Skill[];
 };
 
 export default function SkillGrid({ skills }: SkillGridProps) {
