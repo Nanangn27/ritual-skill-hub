@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { mockSkills } from "@/data/mockSkills";
+import RelatedSkills from "@/components/skills/RelatedSkills";
 
 export default async function SkillDetailPage({
   params,
@@ -68,6 +69,7 @@ export default async function SkillDetailPage({
           requirements, and future updates.
         </p>
       </section>
-    </main>
+      <RelatedSkills currentId={skill.id} />
+</main>
   );
 }
