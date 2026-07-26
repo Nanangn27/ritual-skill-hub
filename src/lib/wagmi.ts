@@ -1,6 +1,6 @@
 import { http, createConfig } from 'wagmi';
 import { mainnet, sepolia } from 'wagmi/chains';
-import { injected, walletConnect, metaMask } from 'wagmi/connectors';
+import { injected, metaMask } from 'wagmi/connectors';
 
 // Define Ritual Chain testnet chain
 export const ritualTestnet = {
@@ -24,9 +24,3 @@ export const config = createConfig({
   connectors: [
     injected(),
     metaMask(),
-    walletConnect({ projectId: process.env.NEXT_PUBLIC_WC_PROJECT_ID ?? '' }),
-  ],
-  transports: {
-    [ritualTestnet.id]: http(),
-  },
-});
