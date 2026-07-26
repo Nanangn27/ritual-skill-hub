@@ -7,6 +7,7 @@ export function useSkills(page = 1, limit = 12) {
   const [skills, setSkills] = useState<Skill[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     async function load() {
@@ -14,6 +15,7 @@ export function useSkills(page = 1, limit = 12) {
         const res = await fetch(`/api/skills?page=${page}&limit=${limit}`);
         const json = await res.json();
         setSkills(json.data ?? []);
+setTotalPages(json.totalPages ?? 1);
       } catch {
         setError("Failed to load skills");
       } finally {
@@ -28,5 +30,6 @@ export function useSkills(page = 1, limit = 12) {
     skills,
     loading,
     error,
+    totalPages,
   };
 }
