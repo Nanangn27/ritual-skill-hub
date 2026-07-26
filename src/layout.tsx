@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { useAccount, useConnect, useDisconnect, useNetwork, useProvider } from 'wagmi';
+import { useAccount, useConnect, useDisconnect, useChainId } from 'wagmi';
 import { metaMask, walletConnect } from 'wagmi/connectors';
 import { ritualTestnet } from '@/lib/wagmi';
 import { useRouter } from 'next/navigation';
@@ -11,7 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { address, isConnected, isConnecting } = useAccount();
   const { connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();
-  const { chain, isConnected: isConnectedNetwork } = useNetwork();
+  const chainId = useChainId();
   const router = useRouter();
   const [shortAddress, setShortAddress] = useState<string>('');
 
@@ -40,7 +40,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   };
 
   // Check if connected to Ritual Testnet
-  const isCorrectNetwork = chain?.id === ritualTestnet.id;
+  const isCorrectNetwork = chainId === ritualTestnet.id;
 
   // If not on correct network and connected, redirect or show warning
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       // We could show a warning or force a disconnect, but for now just show warning in UI
       console.warn('Please switch to Ritual Testnet');
     }
-  }, [isConnected, isCorrectNetwork, chain?.id]);
+  }, [isConnected, isCorrectNetwork, chainId]);
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
