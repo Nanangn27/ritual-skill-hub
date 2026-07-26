@@ -2,15 +2,19 @@ import Link from "next/link";
 import SkillGrid from "@/components/skills/SkillGrid";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { mockSkills } from "@/data/mockSkills";
+import type { Skill } from "@/types/skill";
 
 type FeaturedSkillsProps = {
+  skills?: Skill[];
   search: string;
   category?: string;
   sort?: string;
 };
 
-export default function FeaturedSkills({ search, category = 'All', sort = 'rating' }: FeaturedSkillsProps) {
-  const filteredSkills = mockSkills.filter((skill) => {
+export default function FeaturedSkills({ skills, search, category = 'All', sort = 'rating' }: FeaturedSkillsProps) {
+  const source = skills ?? mockSkills;
+
+const filteredSkills = source.filter((skill) => {
   const q = search.toLowerCase();
 
   const matchesSearch =
