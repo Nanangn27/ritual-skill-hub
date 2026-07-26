@@ -39,9 +39,32 @@ export default function MySkillsPage() {
                 </p>
               </div>
 
-              <div className="text-right text-sm">
-                <div>⭐ {skill.rating}</div>
-                <div>⬇ {skill.downloadCount}</div>
+              <div className="text-right space-y-3">
+                <div className="text-sm">
+                  <div>⭐ {skill.rating}</div>
+                  <div>⬇ {skill.downloadCount}</div>
+                </div>
+
+                <div className="flex gap-2 justify-end">
+                  <Link
+                    href={`/skills/${skill.id}`}
+                    className="rounded-md border px-3 py-1 text-sm hover:bg-gray-50"
+                  >
+                    View
+                  </Link>
+
+                  <button
+                    className="rounded-md border border-indigo-500 px-3 py-1 text-sm text-indigo-600 hover:bg-indigo-50"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    className="rounded-md border border-red-500 px-3 py-1 text-sm text-red-600 hover:bg-red-50"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>
