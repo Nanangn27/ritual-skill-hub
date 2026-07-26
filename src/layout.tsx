@@ -15,6 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const chainId = useChainId();
   const router = useRouter();
   const [shortAddress, setShortAddress] = useState<string>('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (address) {
