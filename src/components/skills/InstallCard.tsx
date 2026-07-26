@@ -1,20 +1,22 @@
 import Link from "next/link";
 type Props = {
+  id: number;
   downloads: number;
   rating: number;
 };
 
 export default function InstallCard({
+  id,
   downloads,
   rating,
 }: Props) {
   return (
     <aside className="rounded-xl border p-6 space-y-4">
-      <Link href={`/install/${skill.id}`} className="w-full rounded-lg bg-indigo-600 py-3 font-medium text-white hover:bg-indigo-700 transition">
+      <Link href={`/install/${id}`} className="w-full rounded-lg bg-indigo-600 py-3 font-medium text-white hover:bg-indigo-700 transition">
         Install Skill
       </Link>
 
-      <Link href={`/install/${skill.id}`} className="w-full rounded-lg border py-3 font-medium hover:bg-gray-50 transition">
+      <Link href={`/install/${id}`} className="w-full rounded-lg border py-3 font-medium hover:bg-gray-50 transition">
         View Source
       </Link>
 

@@ -71,6 +71,7 @@ export default async function SkillDetailPage({
         </section>
 
         <InstallCard
+          id={skill.id}
           downloads={skill.downloadCount}
           rating={skill.rating}
         />
