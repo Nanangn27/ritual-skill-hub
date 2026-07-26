@@ -52,7 +52,7 @@ export default async function EditSkillPage({ params }: Props) {
             Category
           </label>
           <input
-            defaultValue={skill.category}
+            placeholder="AI Agent"
             className="w-full rounded-lg border p-3"
           />
         </div>
