@@ -52,7 +52,8 @@ return (
         onSelect={setCategory}
       />
 
-      <FeaturedSkills search={search} category={category} sort={sort} />
+      <FeaturedSkills
+          skills={skills} search={search} category={category} sort={sort} />
     </main>
   );
 }
