@@ -24,7 +24,7 @@ export default function Home() {
 
       <FeaturedSkills search={search} />
 
-      <TrendingSkills />
+      <TrendingSkills search={search} />
 
       <LatestSkills />
 

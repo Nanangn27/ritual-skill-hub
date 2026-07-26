@@ -2,7 +2,20 @@ import SkillCard from "@/components/skills/SkillCard";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { mockSkills } from "@/data/mockSkills";
 
-export default function TrendingSkills() {
+type TrendingSkillsProps = {
+  search: string;
+};
+
+export default function TrendingSkills({ search }: TrendingSkillsProps) {
+  const filteredSkills = mockSkills.filter((skill) => {
+  const q = search.toLowerCase();
+
+  return (
+    skill.title.toLowerCase().includes(q) ||
+    skill.description.toLowerCase().includes(q)
+  );
+});
+
   return (
     <section className="space-y-6">
       <SectionHeader
