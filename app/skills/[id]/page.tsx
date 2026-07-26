@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { mockSkills } from "@/data/mockSkills";
+import { getSkillById } from "@/lib/skills";
 import RelatedSkills from "@/components/skills/RelatedSkills";
 import InstallCard from "@/components/skills/InstallCard";
 
@@ -9,9 +9,7 @@ export default async function SkillDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const skill = mockSkills.find(
-    (item) => String(item.id) === id
-  );
+  const skill = getSkillById(id);
 
   if (!skill) {
     notFound();
