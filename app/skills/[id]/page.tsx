@@ -203,7 +203,7 @@ export default function SkillDetail() {
                 onChange={(e) => setReview(e.target.value)}
                 placeholder="Share your experience with this skill..."
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                rows="4"
+                rows={4}
               />
               <button
                 type="submit"
