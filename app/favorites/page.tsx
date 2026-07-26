@@ -36,7 +36,7 @@ export default function FavoritesPage() {
 
               <div className="mt-2 flex gap-4 text-sm">
                 <span>⭐ {skill.rating}</span>
-                <span>⬇️ {skill.downloads}</span>
+                <span>⬇️ {skill.downloadCount}</span>
                 <span>{skill.author}</span>
               </div>
             </Link>
