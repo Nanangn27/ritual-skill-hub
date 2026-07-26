@@ -1,3 +1,4 @@
+import Image from 'next/image';
 "use client";
 
 import Link from 'next/link';
@@ -57,9 +58,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-8">
             <Link
               href="/"
-              className="text-xl font-bold text-indigo-600"
+              className="flex items-center gap-3"
             >
-              Ritual Skill Hub
+              <Image
+                src="/logo.svg"
+                alt="Ritual Skill Hub"
+                width={40}
+                height={40}
+              />
+              <span className="text-xl font-bold text-indigo-600">
+                Ritual Skill Hub
+              </span>
             </Link>
 
             <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
