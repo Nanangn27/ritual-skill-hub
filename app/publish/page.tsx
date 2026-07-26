@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useAccount, useWalletClient, useChainId } from 'wagmi';
-import { parseEther, waitForTransactionReceipt } from 'viem/actions';
+import { parseEther } from 'viem';
+import { waitForTransactionReceipt } from 'viem/actions';
 import { ritualTestnet } from '@/lib/wagmi';
 import TransactionStatus from '@/components/TransactionStatus';
 
