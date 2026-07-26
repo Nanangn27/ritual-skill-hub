@@ -1,42 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import SkillCard from '@/components/skills/SkillCard';
+import { mockSkills } from '@/data/mockSkills';
 
 export default function Home() {
-  // In a real app, we would fetch skills from a smart contract or subgraph
-  // For now, we'll use mock data
-  const mockSkills = [
-    {
-      id: 1,
-      title: 'AI Agent Skill: Sentiment Analysis',
-      author: '0x1234...abcd',
-      description: 'A skill for analyzing sentiment in text data using a pre-trained model.',
-      rating: 4.5,
-      reviewCount: 12,
-      downloadCount: 124,
-      tags: ['AI', 'NLP', 'Sentiment'],
-    },
-    {
-      id: 2,
-      title: 'AI Agent Skill: Image Generator',
-      author: '0x5678...efgh',
-      description: 'Generate images from text prompts using a stable diffusion model.',
-      rating: 4.8,
-      reviewCount: 8,
-      downloadCount: 89,
-      tags: ['AI', 'Image Generation', 'Stable Diffusion'],
-    },
-    {
-      id: 3,
-      title: 'AI Agent Skill: Code Reviewer',
-      author: '0x9012...ijkl',
-      description: 'Reviews code for bugs and suggests improvements.',
-      rating: 4.2,
-      reviewCount: 15,
-      downloadCount: 203,
-      tags: ['AI', 'Code', 'DevTools'],
-    },
-  ];
 
   return (
     <div className="space-y-8">
