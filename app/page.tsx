@@ -40,19 +40,35 @@ export default function Home() {
 
   return (
     <div className="space-y-8">
-      <div className="text-center py-12">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          Discover AI Agent Skills
+      <div className="text-center py-20">
+        <div className="inline-flex items-center rounded-full border border-indigo-200 bg-indigo-50 px-4 py-1 text-sm font-medium text-indigo-700 mb-6">
+          ✨ Powered by Ritual Chain
+        </div>
+
+        <h1 className="text-5xl font-extrabold tracking-tight text-gray-900">
+          Ritual Skill Hub
         </h1>
-        <p className="max-w-2xl mx-auto text-gray-600">
-          Explore, download, and rate AI agent skills built by the Ritual Chain community.
+
+        <p className="mt-6 max-w-3xl mx-auto text-lg text-gray-600">
+          The community marketplace for AI Agent Skills built on Ritual.
+          Discover, publish, share, and reuse powerful AI capabilities created by builders across the ecosystem.
         </p>
-        <Link
-          href="/publish"
-          className="inline-block mt-6 px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
-        >
-          Publish a Skill
-        </Link>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <Link
+            href="/skills"
+            className="rounded-lg bg-indigo-600 px-6 py-3 font-semibold text-white hover:bg-indigo-700 transition"
+          >
+            Explore Skills
+          </Link>
+
+          <Link
+            href="/publish"
+            className="rounded-lg border border-gray-300 px-6 py-3 font-semibold hover:bg-gray-50 transition"
+          >
+            Publish Skill
+          </Link>
+        </div>
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
