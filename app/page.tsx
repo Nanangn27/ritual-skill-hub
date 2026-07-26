@@ -5,6 +5,7 @@ import FeaturedSkills from '@/components/home/FeaturedSkills';
 import CommunityStats from '@/components/home/CommunityStats';
 import TrendingSkills from '@/components/home/TrendingSkills';
 import LatestSkills from '@/components/home/LatestSkills';
+import Categories from '@/components/home/Categories';
 
 export default function Home() {
 
@@ -17,6 +18,8 @@ export default function Home() {
       <TrendingSkills />
 
       <LatestSkills />
+
+      <Categories />
 
       <CommunityStats />
     </div>
