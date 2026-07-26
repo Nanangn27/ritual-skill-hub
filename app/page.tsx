@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SkillCard from '@/components/skills/SkillCard';
 import { mockSkills } from '@/data/mockSkills';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 export default function Home() {
 
@@ -39,23 +40,12 @@ export default function Home() {
       </div>
 
       <section className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900">
-              ⭐ Featured Skills
-            </h2>
-            <p className="text-gray-600">
-              Discover the most popular AI Agent Skills from the Ritual community.
-            </p>
-          </div>
-
-          <Link
-            href="/skills"
-            className="text-indigo-600 hover:text-indigo-700 font-medium"
-          >
-            View All →
-          </Link>
-        </div>
+        <SectionHeader
+          title="⭐ Featured Skills"
+          description="Discover the most popular AI Agent Skills from the Ritual community."
+          href="/skills"
+          actionLabel="View All →"
+        />
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {mockSkills.map((skill) => (
