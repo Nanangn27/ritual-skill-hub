@@ -41,7 +41,7 @@ const categories = [
         onSelect={setCategory}
       />
 
-      <FeaturedSkills search={search} category={category} />
+      <FeaturedSkills search={search} category={category} sort={sort} />
     </main>
   );
 }

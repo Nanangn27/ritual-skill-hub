@@ -6,9 +6,10 @@ import { mockSkills } from "@/data/mockSkills";
 type FeaturedSkillsProps = {
   search: string;
   category?: string;
+  sort?: string;
 };
 
-export default function FeaturedSkills({ search, category = 'All' }: FeaturedSkillsProps) {
+export default function FeaturedSkills({ search, category = 'All', sort = 'rating' }: FeaturedSkillsProps) {
   const filteredSkills = mockSkills.filter((skill) => {
   const q = search.toLowerCase();
 
@@ -23,6 +24,20 @@ export default function FeaturedSkills({ search, category = 'All' }: FeaturedSki
   return matchesSearch && matchesCategory;
 });
 
+  const sortedSkills = [...filteredSkills].sort((a, b) => {
+  switch (sort) {
+    case "downloads":
+      return b.downloadCount - a.downloadCount;
+    case "reviews":
+      return b.reviewCount - a.reviewCount;
+    case "title":
+      return a.title.localeCompare(b.title);
+    case "rating":
+    default:
+      return b.rating - a.rating;
+  }
+});
+
   return (
     <section className="space-y-6">
       <SectionHeader
@@ -32,7 +47,7 @@ export default function FeaturedSkills({ search, category = 'All' }: FeaturedSki
         actionLabel="View All →"
       />
 
-      <SkillGrid skills={filteredSkills} />
+      <SkillGrid skills={sortedSkills} />
     </section>
   );
 }
