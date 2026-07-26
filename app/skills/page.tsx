@@ -11,8 +11,10 @@ export default function SkillsPage() {
   const [search, setSearch] = useState("");
 const [category, setCategory] = useState("All");
 const [sort, setSort] = useState("rating");
+const [page, setPage] = useState(1);
+const [favoritesOnly, setFavoritesOnly] = useState(false);
 
-const { skills, loading, error } = useSkills();
+const { skills, loading, error, totalPages } = useSkills(page);
 
 const categories = [
   "All",
