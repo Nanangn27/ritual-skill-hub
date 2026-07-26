@@ -49,7 +49,13 @@ return (
         </p>
       </div>
 
-      <SearchBar
+      
+<p className="text-sm text-gray-500">
+  Showing {visibleSkills.length} of {skills.length} skills
+</p>
+
+
+<SearchBar
         value={search}
         onChange={setSearch}
       />
