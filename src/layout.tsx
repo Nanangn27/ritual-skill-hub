@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const handleConnect = async () => {
     try {
-      await connectAsync({ walletMeta: metaMask() });
+      await connectAsync({ connector: metaMask() });
     } catch (error) {
       console.error('Failed to connect wallet', error);
     }
