@@ -1,134 +1,27 @@
 "use client";
 
-import Link from 'next/link';
-import SkillCard from '@/components/skills/SkillCard';
-import { useState } from 'react';
+import SearchBar from "@/components/ui/SearchBar";
+import FeaturedSkills from "@/components/home/FeaturedSkills";
+import { useState } from "react";
 
 export default function SkillsPage() {
-  // Mock skills data - in a real app, this would come from a smart contract or subgraph
-  const skills = [
-    {
-      id: 1,
-      title: 'AI Agent Skill: Sentiment Analysis',
-      author: '0x1234567890123456789012345678901234567890',
-      description: 'A skill for analyzing sentiment in text data using a pre-trained model.',
-      rating: 4.5,
-      reviewCount: 12,
-      downloadCount: 124,
-      tags: ['AI', 'NLP', 'Sentiment'],
-    },
-    {
-      id: 2,
-      title: 'AI Agent Skill: Image Generator',
-      author: '0x5678901234567890123456789012345678901234',
-      description: 'Generate images from text prompts using a stable diffusion model.',
-      rating: 4.8,
-      reviewCount: 8,
-      downloadCount: 89,
-      tags: ['AI', 'Image Generation', 'Stable Diffusion'],
-    },
-    {
-      id: 3,
-      title: 'AI Agent Skill: Code Reviewer',
-      author: '0x9012345678901234567890123456789012345678',
-      description: 'Reviews code for bugs and suggests improvements.',
-      rating: 4.2,
-      reviewCount: 15,
-      downloadCount: 203,
-      tags: ['AI', 'Code', 'DevTools'],
-    },
-    {
-      id: 4,
-      title: 'AI Agent Skill: Data Analyst',
-      author: '0x1111111111111111111111111111111111111111',
-      description: 'Analyzes data and provides insights and visualizations.',
-      rating: 4.6,
-      reviewCount: 20,
-      downloadCount: 150,
-      tags: ['AI', 'Data Analysis', 'Visualization'],
-    },
-    {
-      id: 5,
-      title: 'AI Agent Skill: Language Translator',
-      author: '0x2222222222222222222222222222222222222222',
-      description: 'Translates text between multiple languages using neural networks.',
-      rating: 4.3,
-      reviewCount: 18,
-      downloadCount: 95,
-      tags: ['AI', 'Translation', 'NLP'],
-    },
-    {
-      id: 6,
-      title: 'AI Agent Skill: Code Generator',
-      author: '0x3333333333333333333333333333333333333333',
-      description: 'Generates code snippets from natural language descriptions.',
-      rating: 4.7,
-      reviewCount: 22,
-      downloadCount: 180,
-      tags: ['AI', 'Code Generation', 'Productivity'],
-    },
-  ];
-
-  const [search, setSearch] = useState('');
-  const [tagFilter, setTagFilter] = useState('');
-
-  const filteredSkills = skills.filter((skill) => {
-    const matchesSearch = skill.title.toLowerCase().includes(search.toLowerCase()) ||
-      skill.description.toLowerCase().includes(search.toLowerCase());
-    const matchesTag = !tagFilter || skill.tags.includes(tagFilter);
-    return matchesSearch && matchesTag;
-  });
+  const [search, setSearch] = useState("");
 
   return (
-    <div className="px-4 py-8">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">All Skills</h1>
-        <p className="text-gray-600">
-          Browse through the collection of AI agent skills created by the Ritual Chain community.
+    <main className="space-y-8">
+      <div>
+        <h1 className="text-4xl font-bold">Browse Skills</h1>
+        <p className="mt-2 text-gray-600">
+          Discover AI Agent Skills built by the Ritual community.
         </p>
       </div>
 
-      <div className="mb-6 flex flex-wrap gap-4">
-        <input
-          type="text"
-          placeholder="Search skills..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        >
-        </input>
-        <select
-          value={tagFilter}
-          onChange={(e) => setTagFilter(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        >
-          <option value="">All Tags</option>
-          {/* Extract unique tags from skills */}
-          {[...new Set(skills.flatMap(s => s.tags))].map((tag) => (
-            <option key={tag} value={tag}>
-              {tag}
-            </option>
-          ))}
-        </select>
-        <Link
-          href="/publish"
-          className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-        >
-          Publish a Skill
-        </Link>
-      </div>
+      <SearchBar
+        value={search}
+        onChange={setSearch}
+      />
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {filteredSkills.length > 0 ? (
-          filteredSkills.map((skill) => (
-            <SkillCard key={skill.id} skill={skill} />
-          ))
-        ) : (
-          <p className="col-span-3 text-center text-gray-500 py-8">
-            No skills match your filters.
-          </p>
-        )}
-      </div>
-    </div>
+      <FeaturedSkills search={search} />
+    </main>
   );
 }
