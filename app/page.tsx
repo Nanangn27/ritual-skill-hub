@@ -4,6 +4,7 @@ import Hero from '@/components/home/Hero';
 import FeaturedSkills from '@/components/home/FeaturedSkills';
 import CommunityStats from '@/components/home/CommunityStats';
 import TrendingSkills from '@/components/home/TrendingSkills';
+import LatestSkills from '@/components/home/LatestSkills';
 
 export default function Home() {
 
@@ -14,6 +15,8 @@ export default function Home() {
       <FeaturedSkills />
 
       <TrendingSkills />
+
+      <LatestSkills />
 
       <CommunityStats />
     </div>
