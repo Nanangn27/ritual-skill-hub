@@ -27,12 +27,12 @@ export default function SkillCard({ skill }: SkillCardProps) {
 <button
   onClick={(e) => {
     e.preventDefault();
-    toggle(skill.id);
+    toggle(String(skill.id));
   }}
   className="absolute right-3 top-3 text-xl"
   aria-label="Toggle favorite"
 >
-  {isFavorite(skill.id) ? "⭐" : "☆"}
+  {isFavorite(String(skill.id)) ? "⭐" : "☆"}
 </button>
 
 
