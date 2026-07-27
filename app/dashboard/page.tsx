@@ -1,15 +1,4 @@
-const skills = [
-  {
-    id: 1,
-    title: "AI Code Reviewer",
-    status: "Published",
-  },
-  {
-    id: 2,
-    title: "Smart Contract Auditor",
-    status: "Draft",
-  },
-];
+const skills = [];
 
 export default function DashboardPage() {
   return (
@@ -20,38 +9,35 @@ export default function DashboardPage() {
         Manage your published AI skills.
       </p>
 
-      <div className="mt-8 space-y-4">
-        {skills.map((skill) => (
-          <div
-            key={skill.id}
-            className="rounded-xl border bg-white p-5 shadow-sm"
+      {skills.length === 0 ? (
+        <div className="mt-8 rounded-xl border border-dashed p-12 text-center">
+          <h2 className="text-2xl font-semibold">
+            No skills published yet
+          </h2>
+
+          <p className="mt-3 text-gray-500">
+            Publish your first AI skill to start building your portfolio.
+          </p>
+
+          <a
+            href="/publish"
+            className="mt-6 inline-block rounded-lg bg-indigo-600 px-5 py-3 text-white hover:bg-indigo-700"
           >
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold">
-                {skill.title}
-              </h2>
-
-              <div className="flex items-center gap-2">
-                <span className="rounded-full bg-indigo-100 px-3 py-1 text-sm text-indigo-700">
-                  {skill.status}
-                </span>
-
-                <button className="rounded border px-3 py-1 text-sm hover:bg-gray-100">
-                  View
-                </button>
-
-                <button className="rounded border px-3 py-1 text-sm hover:bg-gray-100">
-                  Edit
-                </button>
-
-                <button className="rounded border border-red-300 px-3 py-1 text-sm text-red-600 hover:bg-red-50">
-                  Delete
-                </button>
-              </div>
+            Publish Skill
+          </a>
+        </div>
+      ) : (
+        <div className="mt-8 space-y-4">
+          {skills.map((skill: any) => (
+            <div
+              key={skill.id}
+              className="rounded-xl border bg-white p-5 shadow-sm"
+            >
+              {skill.title}
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </main>
   );
 }
