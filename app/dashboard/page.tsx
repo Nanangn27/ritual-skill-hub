@@ -1,94 +1,91 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 type Skill = {
-  id: string | number;
+  id: number;
   title: string;
   status?: string;
 };
 
 export default function DashboardPage() {
-  const handleDelete = async (id: string | number) => {
-    const ok = window.confirm("Delete this skill?");
-    if (!ok) return;
-
-    alert("Delete API will be connected in the next step.");
-  };
-
   const [skills, setSkills] = useState<Skill[]>([]);
   const [loading, setLoading] = useState(true);
 
+  async function loadSkills() {
+    try {
+      const res = await fetch("/api/skills");
+      const data = await res.json();
+      setSkills(Array.isArray(data) ? data : []);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
-    fetch("/api/skills")
-      .then((res) => res.json())
-      .then((data) => {
-        setSkills(Array.isArray(data) ? data : []);
-      })
-      .catch(() => {
-        setSkills([]);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    loadSkills();
   }, []);
+
+  async function handleDelete(id: number) {
+    if (!confirm("Delete this skill?")) return;
+
+    const res = await fetch(`/api/skills/${id}`, {
+      method: "DELETE",
+    });
+
+    if (res.ok) {
+      setSkills((prev) => prev.filter((skill) => skill.id !== id));
+    } else {
+      alert("Failed to delete skill.");
+    }
+  }
+
+  if (loading) {
+    return <main className="p-8">Loading...</main>;
+  }
 
   return (
     <main className="mx-auto max-w-6xl p-8">
       <h1 className="text-4xl font-bold">My Skills</h1>
 
-      <p className="mt-2 text-gray-600">
-        Manage your published AI skills.
-      </p>
-
-      {loading ? (
-        <p className="mt-8 text-gray-500">Loading...</p>
-      ) : skills.length === 0 ? (
-        <div className="mt-8 rounded-xl border border-dashed p-12 text-center">
-          <h2 className="text-2xl font-semibold">
-            No skills published yet
-          </h2>
-
-          <a
-            href="/publish"
-            className="mt-6 inline-block rounded bg-indigo-600 px-5 py-3 text-white"
+      <div className="mt-8 space-y-4">
+        {skills.map((skill) => (
+          <div
+            key={skill.id}
+            className="rounded-xl border bg-white p-5 shadow-sm"
           >
-            Publish Skill
-          </a>
-        </div>
-      ) : (
-        <div className="mt-8 space-y-4">
-          {skills.map((skill) => (
-            <div
-              key={skill.id}
-              className="rounded-xl border bg-white p-5 shadow-sm"
-            >
-              <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between">
+              <Link
+                href={`/dashboard/${skill.id}`}
+                className="text-xl font-semibold hover:text-indigo-600"
+              >
+                {skill.title}
+              </Link>
+
+              <div className="flex items-center gap-2">
+                <span className="rounded-full bg-indigo-100 px-3 py-1 text-sm text-indigo-700">
+                  {skill.status ?? "Published"}
+                </span>
+
                 <Link
-                  href={`/dashboard/${skill.id}`}
-                  className="text-xl font-semibold hover:text-indigo-600"
+                  href={`/dashboard/${skill.id}/edit`}
+                  className="rounded border px-3 py-1 text-sm"
                 >
-                  {skill.title}
+                  Edit
                 </Link>
 
-                <div className="flex items-center gap-2">
-                  <span className="rounded-full bg-indigo-100 px-3 py-1 text-sm text-indigo-700">
-                    {skill.status ?? "Published"}
-                  </span>
-
-                  <a
-                    href={`/dashboard/${skill.id}/edit`}
-                    className="rounded border px-3 py-1 text-sm hover:bg-gray-100"
-                  >
-                    Edit
-                  </a>
-                </div>
+                <button
+                  onClick={() => handleDelete(skill.id)}
+                  className="rounded border border-red-300 px-3 py-1 text-sm text-red-600 hover:bg-red-50"
+                >
+                  Delete
+                </button>
               </div>
             </div>
-          ))}
-        </div>
-      )}
+          </div>
+        ))}
+      </div>
     </main>
   );
 }
