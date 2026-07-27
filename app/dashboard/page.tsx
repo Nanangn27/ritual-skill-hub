@@ -65,9 +65,18 @@ export default function DashboardPage() {
                   {skill.title}
                 </Link>
 
-                <span className="rounded-full bg-indigo-100 px-3 py-1 text-sm text-indigo-700">
-                  {skill.status ?? "Published"}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="rounded-full bg-indigo-100 px-3 py-1 text-sm text-indigo-700">
+                    {skill.status ?? "Published"}
+                  </span>
+
+                  <a
+                    href={`/dashboard/${skill.id}/edit`}
+                    className="rounded border px-3 py-1 text-sm hover:bg-gray-100"
+                  >
+                    Edit
+                  </a>
+                </div>
               </div>
             </div>
           ))}
