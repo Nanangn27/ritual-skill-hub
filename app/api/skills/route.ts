@@ -15,7 +15,10 @@ export async function GET(request: Request) {
       },
     });
 
-    return NextResponse.json(skills);
+    return NextResponse.json({
+      data: skills,
+      totalPages: 1,
+    });
   } catch (error) {
     console.error(error);
 
