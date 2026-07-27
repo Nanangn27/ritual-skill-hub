@@ -103,6 +103,9 @@ useEffect(() => {
               </Link>
 
               <Link href="/publish" className="hover:text-indigo-600 transition">
+              <Link href="/dashboard" className="hover:text-indigo-600 transition">
+                Dashboard
+              </Link>
                 Publish
               </Link>
 
@@ -166,6 +169,9 @@ useEffect(() => {
 <nav className="flex flex-col p-4 space-y-4">
 <Link href="/skills" onClick={() => setMobileMenuOpen(false)}>Explore</Link>
 <Link href="/publish" onClick={() => setMobileMenuOpen(false)}>Publish</Link>
+              <Link href="/dashboard" className="hover:text-indigo-600 transition">
+                Dashboard
+              </Link>
 <a href="#" onClick={() => setMobileMenuOpen(false)}>Docs</a>
 </nav>
 </div>
