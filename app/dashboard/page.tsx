@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 type Skill = {
   id: string | number;
@@ -57,9 +58,12 @@ export default function DashboardPage() {
               className="rounded-xl border bg-white p-5 shadow-sm"
             >
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">
+                <Link
+                  href={`/dashboard/${skill.id}`}
+                  className="text-xl font-semibold hover:text-indigo-600"
+                >
                   {skill.title}
-                </h2>
+                </Link>
 
                 <span className="rounded-full bg-indigo-100 px-3 py-1 text-sm text-indigo-700">
                   {skill.status ?? "Published"}
