@@ -51,7 +51,18 @@ export default function PublishPage() {
       return;
     }
 
-    setLoading(true);
+    
+if (form.documentation.trim()) {
+  try {
+    new URL(form.documentation);
+  } catch {
+    setError("Documentation must be a valid URL");
+    return;
+  }
+}
+
+setLoading(true);
+
 
     const res = await fetch("/api/publish", {
       method: "POST",
