@@ -1,3 +1,8 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 type Props = {
   params: Promise<{
     id: string;
@@ -6,6 +11,39 @@ type Props = {
 
 export default async function EditSkillPage({ params }: Props) {
   const { id } = await params;
+  const router = useRouter();
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  async function handleSave() {
+    setSaving(true);
+
+    try {
+      const res = await fetch(`/api/skills/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          description,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed");
+      }
+
+      router.push("/dashboard");
+      router.refresh();
+    } catch {
+      alert("Failed to save changes.");
+    } finally {
+      setSaving(false);
+    }
+  }
 
   return (
     <main className="mx-auto max-w-3xl p-8">
@@ -14,28 +52,28 @@ export default async function EditSkillPage({ params }: Props) {
       </h1>
 
       <div className="mt-8 rounded-xl border bg-white p-6 shadow-sm">
-        <p className="text-gray-600">
-          Editing skill ID: <strong>{id}</strong>
-        </p>
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Skill title"
+          className="mb-4 w-full rounded border p-3"
+        />
 
-        <form className="mt-6 space-y-4">
-          <input
-            className="w-full rounded border p-3"
-            defaultValue="Skill Title"
-          />
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Description"
+          rows={6}
+          className="mb-4 w-full rounded border p-3"
+        />
 
-          <textarea
-            className="w-full rounded border p-3"
-            rows={6}
-            defaultValue="Skill description..."
-          />
-
-          <button
-            className="rounded bg-indigo-600 px-5 py-3 text-white hover:bg-indigo-700"
-          >
-            Save Changes
-          </button>
-        </form>
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          className="rounded bg-indigo-600 px-5 py-3 text-white disabled:opacity-50"
+        >
+          {saving ? "Saving..." : "Save Changes"}
+        </button>
       </div>
     </main>
   );
