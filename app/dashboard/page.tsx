@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useAccount } from "wagmi";
 
 type Skill = {
   id: number;
@@ -12,10 +13,11 @@ type Skill = {
 export default function DashboardPage() {
   const [skills, setSkills] = useState<Skill[]>([]);
   const [loading, setLoading] = useState(true);
+  const { address } = useAccount();
 
   async function loadSkills() {
     try {
-      const res = await fetch("/api/skills");
+      const res = await fetch(`/api/skills?ownerAddress=${address ?? ""}`);
       const data = await res.json();
       setSkills(Array.isArray(data) ? data : []);
     } finally {
@@ -24,8 +26,8 @@ export default function DashboardPage() {
   }
 
   useEffect(() => {
-    loadSkills();
-  }, []);
+    if (address) loadSkills();
+  }, [address]);
 
   async function handleDelete(id: number) {
     if (!confirm("Delete this skill?")) return;
