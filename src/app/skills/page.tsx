@@ -66,6 +66,11 @@ return (
         onSelect={setCategory}
       />
 
+      <SortSelect
+        value={sort}
+        onChange={setSort}
+      />
+
       
 <div className="mb-4 flex items-center gap-2">
   <input
