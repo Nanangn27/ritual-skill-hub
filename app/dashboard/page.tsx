@@ -1,4 +1,4 @@
-const skills = [];
+const skills: { id: number; title: string; status: string }[] = [];
 
 export default function DashboardPage() {
   return (
