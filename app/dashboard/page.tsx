@@ -10,6 +10,13 @@ type Skill = {
 };
 
 export default function DashboardPage() {
+  const handleDelete = async (id: string | number) => {
+    const ok = window.confirm("Delete this skill?");
+    if (!ok) return;
+
+    alert("Delete API will be connected in the next step.");
+  };
+
   const [skills, setSkills] = useState<Skill[]>([]);
   const [loading, setLoading] = useState(true);
 
