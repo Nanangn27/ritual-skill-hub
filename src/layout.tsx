@@ -46,11 +46,23 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   // If not on correct network and connected, redirect or show warning
   useEffect(() => {
+    const switchNetwork = async () => {
+      if (!(window as any).ethereum) return;
+
+      try {
+        await (window as any).ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x7c5' }],
+        });
+      } catch (err) {
+        console.warn(err);
+      }
+    };
+
     if (isConnected && !isCorrectNetwork) {
-      // We could show a warning or force a disconnect, but for now just show warning in UI
-      console.warn('Please switch to Ritual Testnet');
+      switchNetwork();
     }
-  }, [isConnected, isCorrectNetwork, chainId]);
+  }, [isConnected, isCorrectNetwork]);
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
