@@ -1,116 +1,98 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function PublishPage() {
   const router = useRouter();
 
-  const [skillName, setSkillName] = useState('');
-  const [description, setDescription] = useState('');
-  const [repository, setRepository] = useState('');
-  const [documentation, setDocumentation] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    repository: "",
+    documentation: "",
+  });
 
-  const handlePublish = async (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    setLoading(true);
-
-    const res = await fetch('/api/publish', {
-      method: 'POST',
+    const res = await fetch("/api/publish", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        title: skillName,
-        description,
-        repository,
-        documentation,
-      }),
+      body: JSON.stringify(form),
     });
 
-    setLoading(false);
-
     if (res.ok) {
-      router.push('/publish/preview');
+      router.push("/install/success");
     } else {
-      alert('Failed to publish skill');
+      alert("Failed to publish skill");
     }
-  };
+  }
 
   return (
-    <main className="mx-auto max-w-3xl space-y-8 p-8">
-      <div>
-        <h1 className="text-4xl font-bold">Publish Skill</h1>
-        <p className="mt-2 text-gray-600">
-          Share your AI skill with the Ritual community.
-        </p>
-      </div>
+    <main className="mx-auto max-w-2xl p-6">
+      <h1 className="mb-6 text-3xl font-bold">
+        Publish Skill
+      </h1>
 
       <form
-        onSubmit={handlePublish}
-        className="space-y-6 rounded-xl border p-6"
+        onSubmit={handleSubmit}
+        className="space-y-4"
       >
-        <div>
-          <label className="mb-2 block font-medium">Skill Name</label>
-          <input
-            className="w-full rounded-lg border p-3"
-            value={skillName}
-            onChange={(e) => setSkillName(e.target.value)}
-            placeholder="My AI Skill"
-            required
-          />
-        </div>
+        <input
+          className="w-full rounded border p-3"
+          placeholder="Title"
+          value={form.title}
+          onChange={(e) =>
+            setForm({ ...form, title: e.target.value })
+          }
+        />
 
-        <div>
-          <label className="mb-2 block font-medium">Description</label>
-          <textarea
-            className="h-32 w-full rounded-lg border p-3"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Describe your skill..."
-            required
-          />
-        </div>
+        <textarea
+          className="w-full rounded border p-3"
+          placeholder="Description"
+          rows={5}
+          value={form.description}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              description: e.target.value,
+            })
+          }
+        />
 
-        <div>
-          <label className="mb-2 block font-medium">Repository URL</label>
-          <input
-            className="w-full rounded-lg border p-3"
-            value={repository}
-            onChange={(e) => setRepository(e.target.value)}
-            placeholder="https://github.com/..."
-          />
-        </div>
+        <input
+          className="w-full rounded border p-3"
+          placeholder="Repository URL"
+          value={form.repository}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              repository: e.target.value,
+            })
+          }
+        />
 
-        <div>
-          <label className="mb-2 block font-medium">Documentation URL</label>
-          <input
-            className="w-full rounded-lg border p-3"
-            value={documentation}
-            onChange={(e) => setDocumentation(e.target.value)}
-            placeholder="https://docs.example.com"
-          />
-        </div>
+        <input
+          className="w-full rounded border p-3"
+          placeholder="Documentation URL"
+          value={form.documentation}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              documentation: e.target.value,
+            })
+          }
+        />
 
-        <div className="flex gap-3">
-          <button
-            type="submit"
-            disabled={loading}
-            className="rounded-lg bg-indigo-600 px-6 py-3 text-white hover:bg-indigo-700 disabled:opacity-50"
-          >
-            {loading ? 'Publishing...' : 'Publish Skill'}
-          </button>
-
-          <Link
-            href="/publish/preview"
-            className="rounded-lg border px-6 py-3"
-          >
-            Preview
-          </Link>
-        </div>
+        <button
+          className="rounded bg-black px-6 py-3 text-white"
+          type="submit"
+        >
+          Publish
+        </button>
       </form>
     </main>
   );
