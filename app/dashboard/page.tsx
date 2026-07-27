@@ -1,6 +1,31 @@
-const skills: { id: number; title: string; status: string }[] = [];
+"use client";
+
+import { useEffect, useState } from "react";
+
+type Skill = {
+  id: string | number;
+  title: string;
+  status?: string;
+};
 
 export default function DashboardPage() {
+  const [skills, setSkills] = useState<Skill[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/skills")
+      .then((res) => res.json())
+      .then((data) => {
+        setSkills(Array.isArray(data) ? data : []);
+      })
+      .catch(() => {
+        setSkills([]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <main className="mx-auto max-w-6xl p-8">
       <h1 className="text-4xl font-bold">My Skills</h1>
@@ -9,31 +34,37 @@ export default function DashboardPage() {
         Manage your published AI skills.
       </p>
 
-      {skills.length === 0 ? (
+      {loading ? (
+        <p className="mt-8 text-gray-500">Loading...</p>
+      ) : skills.length === 0 ? (
         <div className="mt-8 rounded-xl border border-dashed p-12 text-center">
           <h2 className="text-2xl font-semibold">
             No skills published yet
           </h2>
 
-          <p className="mt-3 text-gray-500">
-            Publish your first AI skill to start building your portfolio.
-          </p>
-
           <a
             href="/publish"
-            className="mt-6 inline-block rounded-lg bg-indigo-600 px-5 py-3 text-white hover:bg-indigo-700"
+            className="mt-6 inline-block rounded bg-indigo-600 px-5 py-3 text-white"
           >
             Publish Skill
           </a>
         </div>
       ) : (
         <div className="mt-8 space-y-4">
-          {skills.map((skill: any) => (
+          {skills.map((skill) => (
             <div
               key={skill.id}
               className="rounded-xl border bg-white p-5 shadow-sm"
             >
-              {skill.title}
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-semibold">
+                  {skill.title}
+                </h2>
+
+                <span className="rounded-full bg-indigo-100 px-3 py-1 text-sm text-indigo-700">
+                  {skill.status ?? "Published"}
+                </span>
+              </div>
             </div>
           ))}
         </div>
