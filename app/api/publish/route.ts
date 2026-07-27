@@ -20,7 +20,10 @@ export async function POST(req: Request) {
     console.error(error);
 
     return NextResponse.json(
-      { error: "Failed to publish skill" },
+      {
+        error: "Failed to publish skill",
+        message: error instanceof Error ? error.message : String(error)
+      },
       { status: 500 }
     );
   }
