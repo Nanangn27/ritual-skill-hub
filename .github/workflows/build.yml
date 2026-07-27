@@ -19,6 +19,6 @@ jobs:
 
       - run: npm ci
 
-      - run: npm exec prisma generate
+      - run: ./node_modules/.bin/prisma generate
 
       - run: npm run build
