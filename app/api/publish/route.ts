@@ -1,24 +1,39 @@
 import { NextResponse } from "next/server";
-
-const skills: any[] = [];
+import { prisma } from "@/lib/prisma";
 
 export async function POST(req: Request) {
-  const body = await req.json();
+  try {
+    const body = await req.json();
 
-  const skill = {
-    id: Date.now(),
-    ...body,
-    createdAt: new Date().toISOString(),
-  };
+    const skill = await prisma.skill.create({
+      data: {
+        title: body.title,
+        description: body.description,
+        repository: body.repository,
+        documentation: body.documentation,
+        ownerAddress: body.ownerAddress,
+      },
+    });
 
-  skills.push(skill);
-
-  return NextResponse.json({
-    success: true,
-    skill,
-  });
+    return NextResponse.json({
+      success: true,
+      skill,
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { success: false },
+      { status: 500 }
+    );
+  }
 }
 
 export async function GET() {
+  const skills = await prisma.skill.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
   return NextResponse.json(skills);
 }
