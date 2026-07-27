@@ -9,31 +9,19 @@ export async function POST(req: Request) {
       data: {
         title: body.title,
         description: body.description,
-        repository: body.repository,
-        documentation: body.documentation,
-        ownerAddress: body.ownerAddress,
+        repository: body.repository || null,
+        documentation: body.documentation || null,
+        ownerAddress: body.ownerAddress || null,
       },
     });
 
-    return NextResponse.json({
-      success: true,
-      skill,
-    });
+    return NextResponse.json(skill);
   } catch (error) {
     console.error(error);
+
     return NextResponse.json(
-      { success: false },
+      { error: "Failed to publish skill" },
       { status: 500 }
     );
   }
-}
-
-export async function GET() {
-  const skills = await prisma.skill.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-
-  return NextResponse.json(skills);
 }
