@@ -47,10 +47,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   // If not on correct network and connected, redirect or show warning
   useEffect(() => {
     const switchNetwork = async () => {
-      if (!window.ethereum) return;
+      if (!(window as any).ethereum) return;
 
       try {
-        await window.ethereum.request({
+        await (window as any).ethereum.request({
           method: 'wallet_switchEthereumChain',
           params: [{ chainId: '0x7c5' }],
         });
