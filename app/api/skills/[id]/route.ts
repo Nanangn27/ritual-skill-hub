@@ -1,22 +1,34 @@
 import { NextResponse } from "next/server";
-import { getSkillById } from "@/lib/skills";
+import { prisma } from "@/lib/prisma";
 
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
+type Props = {
+  params: Promise<{
+    id: string;
+  }>;
+};
+
+export async function DELETE(
+  _request: Request,
+  { params }: Props
 ) {
-  const { id } = await params;
-  const skill = getSkillById(id);
+  try {
+    const { id } = await params;
 
-  if (!skill) {
+    await prisma.skill.delete({
+      where: {
+        id,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+    });
+  } catch (error) {
+    console.error(error);
+
     return NextResponse.json(
-      { success: false, message: "Skill not found" },
-      { status: 404 }
+      { error: "Failed to delete skill" },
+      { status: 500 }
     );
   }
-
-  return NextResponse.json({
-    success: true,
-    data: skill,
-  });
 }
