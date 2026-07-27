@@ -13,10 +13,11 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
+    const skillId = Number(id);
 
     await prisma.skill.delete({
       where: {
-        id,
+        id: skillId,
       },
     });
 
