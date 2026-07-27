@@ -29,7 +29,6 @@ export const ritualTestnet = {
 } as const;
 
 export const config = createConfig({
-  reconnectOnMount: true,
   chains: [ritualTestnet],
   connectors: [
     injected(),
