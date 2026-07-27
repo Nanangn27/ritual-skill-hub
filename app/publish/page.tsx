@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 export default function PublishPage() {
   const router = useRouter();
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -16,6 +19,25 @@ export default function PublishPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
+    setError("");
+
+    if (!form.title.trim()) {
+      setError("Title is required");
+      return;
+    }
+
+    if (!form.description.trim()) {
+      setError("Description is required");
+      return;
+    }
+
+    if (!form.repository.trim()) {
+      setError("Repository is required");
+      return;
+    }
+
+    setLoading(true);
+
     const res = await fetch("/api/publish", {
       method: "POST",
       headers: {
@@ -24,18 +46,22 @@ export default function PublishPage() {
       body: JSON.stringify(form),
     });
 
+    setLoading(false);
+
     if (res.ok) {
       router.push("/install/success");
     } else {
-      alert("Failed to publish skill");
+      setError("Failed to publish skill");
     }
   }
 
   return (
     <main className="mx-auto max-w-2xl p-6">
-      <h1 className="mb-6 text-3xl font-bold">
-        Publish Skill
-      </h1>
+      <h1 className="mb-6 text-3xl font-bold">Publish Skill</h1>
+
+      {error && (
+        <p className="mb-4 text-red-500">{error}</p>
+      )}
 
       <form
         onSubmit={handleSubmit}
@@ -53,13 +79,9 @@ export default function PublishPage() {
         <textarea
           className="w-full rounded border p-3"
           placeholder="Description"
-          rows={5}
           value={form.description}
           onChange={(e) =>
-            setForm({
-              ...form,
-              description: e.target.value,
-            })
+            setForm({ ...form, description: e.target.value })
           }
         />
 
@@ -68,30 +90,25 @@ export default function PublishPage() {
           placeholder="Repository URL"
           value={form.repository}
           onChange={(e) =>
-            setForm({
-              ...form,
-              repository: e.target.value,
-            })
+            setForm({ ...form, repository: e.target.value })
           }
         />
 
         <input
           className="w-full rounded border p-3"
-          placeholder="Documentation URL"
+          placeholder="Documentation URL (optional)"
           value={form.documentation}
           onChange={(e) =>
-            setForm({
-              ...form,
-              documentation: e.target.value,
-            })
+            setForm({ ...form, documentation: e.target.value })
           }
         />
 
         <button
-          className="rounded bg-black px-6 py-3 text-white"
           type="submit"
+          disabled={loading}
+          className="rounded bg-black px-6 py-3 text-white disabled:opacity-50"
         >
-          Publish
+          {loading ? "Publishing..." : "Publish Skill"}
         </button>
       </form>
     </main>
