@@ -3,14 +3,20 @@ import Image from 'next/image';
 
 import Link from 'next/link';
 import { useAccount, useConnect, useDisconnect, useChainId } from 'wagmi';
-import { metaMask } from 'wagmi/connectors';
 import { ritualTestnet } from '@/lib/wagmi';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { address, isConnected, isConnecting } = useAccount();
-  const { connectAsync } = useConnect();
+  const {
+  connectAsync,
+  connectors,
+} = useConnect();
+
+useEffect(() => {
+  console.log("Available connectors:", connectors);
+}, [connectors]);
   const { disconnectAsync } = useDisconnect();
   const chainId = useChainId();
   const router = useRouter();
@@ -27,7 +33,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const handleConnect = async () => {
     try {
-      await connectAsync({ connector: metaMask() });
+      if (!connectors.length) {
+      console.error("No wallet connector found");
+      return;
+    }
+
+    await connectAsync({
+      connector: connectors[0],
+    });
     } catch (error) {
       console.error('Failed to connect wallet', error);
     }
