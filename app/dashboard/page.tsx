@@ -31,9 +31,23 @@ export default function DashboardPage() {
                 {skill.title}
               </h2>
 
-              <span className="rounded-full bg-indigo-100 px-3 py-1 text-sm text-indigo-700">
-                {skill.status}
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="rounded-full bg-indigo-100 px-3 py-1 text-sm text-indigo-700">
+                  {skill.status}
+                </span>
+
+                <button className="rounded border px-3 py-1 text-sm hover:bg-gray-100">
+                  View
+                </button>
+
+                <button className="rounded border px-3 py-1 text-sm hover:bg-gray-100">
+                  Edit
+                </button>
+
+                <button className="rounded border border-red-300 px-3 py-1 text-sm text-red-600 hover:bg-red-50">
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
         ))}
