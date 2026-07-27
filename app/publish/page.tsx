@@ -36,6 +36,13 @@ export default function PublishPage() {
       return;
     }
 
+    try {
+      new URL(form.repository);
+    } catch {
+      setError("Repository must be a valid URL");
+      return;
+    }
+
     setLoading(true);
 
     const res = await fetch("/api/publish", {
