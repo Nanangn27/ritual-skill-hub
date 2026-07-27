@@ -1,23 +1,21 @@
 import { NextResponse } from "next/server";
-import { getAllSkills } from "@/lib/skills";
+import { prisma } from "@/lib/prisma";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
+export async function GET() {
+  try {
+    const skills = await prisma.skill.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
 
-  const page = Number(searchParams.get("page") ?? 1);
-  const limit = Number(searchParams.get("limit") ?? 12);
+    return NextResponse.json(skills);
+  } catch (error) {
+    console.error(error);
 
-  const skills = getAllSkills();
-
-  const start = (page - 1) * limit;
-  const end = start + limit;
-
-  return NextResponse.json({
-    success: true,
-    total: skills.length,
-    page,
-    limit,
-    totalPages: Math.ceil(skills.length / limit),
-    data: skills.slice(start, end),
-  });
+    return NextResponse.json(
+      { error: "Failed to fetch skills" },
+      { status: 500 }
+    );
+  }
 }
