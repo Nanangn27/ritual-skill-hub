@@ -37,9 +37,17 @@ export default function PublishPage() {
     }
 
     try {
-      new URL(form.repository);
+      const url = new URL(form.repository);
+
+      if (
+        url.hostname !== "github.com" ||
+        url.pathname.split("/").filter(Boolean).length < 2
+      ) {
+        setError("Repository must be a valid GitHub repository");
+        return;
+      }
     } catch {
-      setError("Repository must be a valid URL");
+      setError("Repository must be a valid GitHub repository");
       return;
     }
 
